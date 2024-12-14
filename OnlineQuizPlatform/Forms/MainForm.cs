@@ -1,4 +1,5 @@
 ﻿using OnlineQuizPlatform.Domain;
+using OnlineQuizPlatform.Helpers;
 
 namespace OnlineQuizPlatform.Forms
 {
@@ -200,16 +201,25 @@ namespace OnlineQuizPlatform.Forms
         }
         private void InitializeLeaderBoard()
         {
-            LeaderBoardTable.Controls.Clear();
-            LeaderBoardTable.ColumnStyles.Clear();
-            LeaderBoardTable.RowStyles.Clear();
+            if (LeaderBoardTable != null)
+            {
+               
+                var doubleBufferedTable = new DoubleBufferedTableLayoutPanel(LeaderBoardTable);
 
-            LeaderBoardTable.ColumnCount = 2;
-            LeaderBoardTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70));
-            LeaderBoardTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30));
+               
+                doubleBufferedTable.ColumnStyles.Clear(); 
+                doubleBufferedTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70)); // Name column
+                doubleBufferedTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30)); // Score column
 
+
+                panel1.Controls.Remove(LeaderBoardTable);
+                panel1.Controls.Add(doubleBufferedTable);
+                LeaderBoardTable = doubleBufferedTable;
+            }
             AddLeaderBoardRow("Name", "Score", isHeader: true);
         }
+
+
         private async Task LoadLeaderBoard()
         {
             try
@@ -268,8 +278,8 @@ namespace OnlineQuizPlatform.Forms
 
             LeaderBoardTable.RowCount++;
             LeaderBoardTable.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            LeaderBoardTable.Controls.Add(nameLabel, 0, LeaderBoardTable.RowCount - 1); // Name column
-            LeaderBoardTable.Controls.Add(scoreLabel, 1, LeaderBoardTable.RowCount - 1); // Score column
+            LeaderBoardTable.Controls.Add(nameLabel, 0, LeaderBoardTable.RowCount - 1);
+            LeaderBoardTable.Controls.Add(scoreLabel, 1, LeaderBoardTable.RowCount - 1); 
         }
     }
 }

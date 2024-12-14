@@ -83,9 +83,10 @@
             LeaderBoardTable.ForeColor = SystemColors.ButtonHighlight;
             LeaderBoardTable.Location = new Point(0, 143);
             LeaderBoardTable.Name = "LeaderBoardTable";
+            LeaderBoardTable.Padding = new Padding(0, 0, 0, 1);
             LeaderBoardTable.RowCount = 2;
-            LeaderBoardTable.RowStyles.Add(new RowStyle(SizeType.Percent, 10.27027F));
-            LeaderBoardTable.RowStyles.Add(new RowStyle(SizeType.Percent, 89.72973F));
+            LeaderBoardTable.RowStyles.Add(new RowStyle(SizeType.Percent, 11.458333F));
+            LeaderBoardTable.RowStyles.Add(new RowStyle(SizeType.Percent, 88.5416641F));
             LeaderBoardTable.Size = new Size(212, 290);
             LeaderBoardTable.TabIndex = 1;
             // 
