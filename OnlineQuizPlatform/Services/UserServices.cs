@@ -1,63 +1,99 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineQuizPlatform.Database;
 using OnlineQuizPlatform.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OnlineQuizPlatform.Services
+public class UserServices
 {
-    public class UserServices
+    private readonly ApplicationDbContext _context;
+    public record UserDto(string username, string password);
+    public record AddUserDto(string name, string username, string password);
+    public static object? _lock = new();
+    public UserServices(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
-        public record  UserDto (string username  , string password);
-        public record AddUserDto(string name , string username  , string password);
-        public UserServices(ApplicationDbContext context)
+        _context = context;
+    }
+    public async Task<User> Login(UserDto dto)
+    {
+        var user = await _context.Users
+            .Where(u => u.Username == dto.username)
+            .FirstOrDefaultAsync();
+
+        if ( user.Password != dto.password)
         {
-            _context = context; 
+            return null;
         }
-        public User Login(UserDto dto)
+
+        return user;
+    }
+    public async Task<User> SignUp(AddUserDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.username) || string.IsNullOrWhiteSpace(dto.password))
         {
-            var user = _context.Users.Where(u => u.Username == dto.username).FirstOrDefault();
-            if (user.Password !=  dto.password) return null;
-            return user;
+            throw new ArgumentException("Username and password cannot be empty");
         }
-        public User SignUp(AddUserDto dto)
+
+        lock (_lock)
         {
+
+            var existingUser = _context.Users
+                .Where(u => u.Username == dto.username)
+                .FirstOrDefault();
+            if (existingUser != null)
+            {
+                return null; 
+            }
             var user = new User
             {
-                Name = dto.username,
+                Name = dto.name,
                 Username = dto.username,
                 Password = dto.password,
             };
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            return user; 
-        }
-        public User UpdateScore(int score , int UserId)
-        {
-            var user  =  _context.Users.Find(UserId);
-            if (user == null) return null;
-            user.Score = score;
-            _context.SaveChanges();
             return user;
         }
-        public List<Question> GetQuiz()
+    }
+    public async Task<User> UpdateScore(int score, int userId)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null) return null;
+
+        user.Score += score;
+
+        try
         {
-            var quiz = _context.Questions
-                .OrderBy(q => EF.Functions.Random())
-                .Take(10)
-                .ToList();
-            return quiz;
+            await _context.SaveChangesAsync();
+            return user;
         }
-        public List<User> GetLeaderBoard()
+        catch (DbUpdateConcurrencyException)
         {
-            return  _context.Users
-                .OrderBy(u => u.Score)
-                .ToList();
+            return null;
         }
     }
+    public async Task<List<Question>> GetQuiz(int seed = 0)
+    {
+        var random = new Random(seed);
+        var questions = await _context.Questions.ToListAsync();
+
+        var randomizedQuestions = questions
+            .OrderBy(q => random.Next())
+            .Take(10)
+            .ToList();
+
+        return randomizedQuestions;
+    }
+
+
+    public async Task<List<User>> GetLeaderBoard()
+    {
+        lock(_lock){
+            return _context.Users
+              .AsNoTracking() 
+              .OrderByDescending(u => u.Score)
+              .Take(10)
+              .ToList();
+        }
+    }
+
 }

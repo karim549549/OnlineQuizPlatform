@@ -16,6 +16,31 @@ namespace OnlineQuizPlatform.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
+            modelBuilder.Entity("OnlineQuizPlatform.Domain.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CorrectAnswerIndex")
+                        .HasColumnType("INTEGER");
+
+                    b.PrimitiveCollection<string>("Options")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Questions");
+                });
+
             modelBuilder.Entity("OnlineQuizPlatform.Domain.User", b =>
                 {
                     b.Property<int>("Id")
@@ -38,6 +63,9 @@ namespace OnlineQuizPlatform.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
