@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
+            Title = new Label();
             LeaderBoardTable = new TableLayoutPanel();
             label1 = new Label();
             QuizPanel = new Panel();
@@ -52,12 +53,26 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Highlight;
+            panel1.Controls.Add(Title);
             panel1.Controls.Add(LeaderBoardTable);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(215, 450);
             panel1.TabIndex = 0;
+            // 
+            // Title
+            // 
+            Title.AutoSize = true;
+            Title.BorderStyle = BorderStyle.Fixed3D;
+            Title.Font = new Font("Segoe UI Black", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Title.ForeColor = SystemColors.ButtonHighlight;
+            Title.Location = new Point(12, 21);
+            Title.Name = "Title";
+            Title.Size = new Size(121, 32);
+            Title.TabIndex = 3;
+            Title.Text = "Welcome ";
+            Title.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LeaderBoardTable
             // 
@@ -66,12 +81,12 @@
             LeaderBoardTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.4972687F));
             LeaderBoardTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 76.50273F));
             LeaderBoardTable.ForeColor = SystemColors.ButtonHighlight;
-            LeaderBoardTable.Location = new Point(0, 73);
+            LeaderBoardTable.Location = new Point(0, 143);
             LeaderBoardTable.Name = "LeaderBoardTable";
             LeaderBoardTable.RowCount = 2;
             LeaderBoardTable.RowStyles.Add(new RowStyle(SizeType.Percent, 10.27027F));
             LeaderBoardTable.RowStyles.Add(new RowStyle(SizeType.Percent, 89.72973F));
-            LeaderBoardTable.Size = new Size(212, 377);
+            LeaderBoardTable.Size = new Size(212, 290);
             LeaderBoardTable.TabIndex = 1;
             // 
             // label1
@@ -80,7 +95,7 @@
             label1.BorderStyle = BorderStyle.Fixed3D;
             label1.Font = new Font("Segoe UI Black", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(31, 20);
+            label1.Location = new Point(30, 86);
             label1.Name = "label1";
             label1.Size = new Size(152, 32);
             label1.TabIndex = 0;
@@ -258,5 +273,6 @@
         private Button Back;
         private ProgressBar progressBar1;
         private System.Windows.Forms.Timer LeaderBoardTimer;
+        private Label Title;
     }
 }

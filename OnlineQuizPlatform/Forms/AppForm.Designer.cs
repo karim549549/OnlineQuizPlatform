@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            button2 = new Button();
-            button1 = new Button();
+            SignUpToggle = new Button();
+            LoginToggle = new Button();
             LoginPanel = new Panel();
             LoginButton = new Button();
             label2 = new Label();
@@ -53,33 +53,35 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Highlight;
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(SignUpToggle);
+            panel1.Controls.Add(LoginToggle);
             panel1.ForeColor = SystemColors.ButtonHighlight;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(154, 449);
             panel1.TabIndex = 0;
             // 
-            // button2
+            // SignUpToggle
             // 
-            button2.BackColor = SystemColors.HotTrack;
-            button2.Location = new Point(3, 210);
-            button2.Name = "button2";
-            button2.Size = new Size(148, 58);
-            button2.TabIndex = 1;
-            button2.Text = "Signup";
-            button2.UseVisualStyleBackColor = false;
+            SignUpToggle.BackColor = SystemColors.HotTrack;
+            SignUpToggle.Location = new Point(3, 210);
+            SignUpToggle.Name = "SignUpToggle";
+            SignUpToggle.Size = new Size(148, 58);
+            SignUpToggle.TabIndex = 1;
+            SignUpToggle.Text = "Signup";
+            SignUpToggle.UseVisualStyleBackColor = false;
+            SignUpToggle.Click += SignUpToggle_Click;
             // 
-            // button1
+            // LoginToggle
             // 
-            button1.BackColor = SystemColors.HotTrack;
-            button1.Location = new Point(3, 125);
-            button1.Name = "button1";
-            button1.Size = new Size(148, 58);
-            button1.TabIndex = 0;
-            button1.Text = "Login";
-            button1.UseVisualStyleBackColor = false;
+            LoginToggle.BackColor = SystemColors.HotTrack;
+            LoginToggle.Location = new Point(3, 125);
+            LoginToggle.Name = "LoginToggle";
+            LoginToggle.Size = new Size(148, 58);
+            LoginToggle.TabIndex = 0;
+            LoginToggle.Text = "Login";
+            LoginToggle.UseVisualStyleBackColor = false;
+            LoginToggle.Click += LoginToggle_Click;
             // 
             // LoginPanel
             // 
@@ -89,16 +91,16 @@
             LoginPanel.Controls.Add(Loginpassword);
             LoginPanel.Controls.Add(label1);
             LoginPanel.Controls.Add(usernameLogin);
-            LoginPanel.Location = new Point(510, 0);
+            LoginPanel.Location = new Point(160, 0);
             LoginPanel.Name = "LoginPanel";
-            LoginPanel.Size = new Size(289, 449);
+            LoginPanel.Size = new Size(639, 449);
             LoginPanel.TabIndex = 0;
             // 
             // LoginButton
             // 
-            LoginButton.Location = new Point(110, 305);
+            LoginButton.Location = new Point(302, 272);
             LoginButton.Name = "LoginButton";
-            LoginButton.Size = new Size(131, 61);
+            LoginButton.Size = new Size(150, 69);
             LoginButton.TabIndex = 6;
             LoginButton.Text = "Login";
             LoginButton.UseVisualStyleBackColor = true;
@@ -108,7 +110,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(17, 193);
+            label2.Location = new Point(148, 190);
             label2.Name = "label2";
             label2.Size = new Size(87, 25);
             label2.TabIndex = 5;
@@ -116,16 +118,16 @@
             // 
             // Loginpassword
             // 
-            Loginpassword.Location = new Point(110, 187);
+            Loginpassword.Location = new Point(302, 187);
             Loginpassword.Name = "Loginpassword";
-            Loginpassword.Size = new Size(160, 31);
+            Loginpassword.Size = new Size(258, 31);
             Loginpassword.TabIndex = 4;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(13, 95);
+            label1.Location = new Point(148, 95);
             label1.Name = "label1";
             label1.Size = new Size(91, 25);
             label1.TabIndex = 3;
@@ -133,9 +135,9 @@
             // 
             // usernameLogin
             // 
-            usernameLogin.Location = new Point(110, 95);
+            usernameLogin.Location = new Point(302, 92);
             usernameLogin.Name = "usernameLogin";
-            usernameLogin.Size = new Size(160, 31);
+            usernameLogin.Size = new Size(258, 31);
             usernameLogin.TabIndex = 2;
             // 
             // SignUpPanel
@@ -149,16 +151,16 @@
             SignUpPanel.Controls.Add(label4);
             SignUpPanel.Controls.Add(usernamesign);
             SignUpPanel.ForeColor = SystemColors.ButtonFace;
-            SignUpPanel.Location = new Point(157, 0);
+            SignUpPanel.Location = new Point(163, 0);
             SignUpPanel.Name = "SignUpPanel";
-            SignUpPanel.Size = new Size(347, 449);
+            SignUpPanel.Size = new Size(636, 449);
             SignUpPanel.TabIndex = 7;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(26, 55);
+            label5.Location = new Point(173, 73);
             label5.Name = "label5";
             label5.Size = new Size(59, 25);
             label5.TabIndex = 8;
@@ -166,7 +168,7 @@
             // 
             // nameBox
             // 
-            nameBox.Location = new Point(132, 52);
+            nameBox.Location = new Point(299, 70);
             nameBox.Name = "nameBox";
             nameBox.Size = new Size(202, 31);
             nameBox.TabIndex = 7;
@@ -174,7 +176,7 @@
             // SignUpButton
             // 
             SignUpButton.ForeColor = SystemColors.ActiveCaptionText;
-            SignUpButton.Location = new Point(132, 305);
+            SignUpButton.Location = new Point(299, 304);
             SignUpButton.Name = "SignUpButton";
             SignUpButton.Size = new Size(131, 61);
             SignUpButton.TabIndex = 6;
@@ -186,7 +188,7 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(26, 219);
+            label3.Location = new Point(162, 219);
             label3.Name = "label3";
             label3.Size = new Size(87, 25);
             label3.TabIndex = 5;
@@ -194,7 +196,7 @@
             // 
             // passwordsign
             // 
-            passwordsign.Location = new Point(132, 216);
+            passwordsign.Location = new Point(299, 216);
             passwordsign.Name = "passwordsign";
             passwordsign.Size = new Size(202, 31);
             passwordsign.TabIndex = 4;
@@ -203,7 +205,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(26, 145);
+            label4.Location = new Point(158, 148);
             label4.Name = "label4";
             label4.Size = new Size(91, 25);
             label4.TabIndex = 3;
@@ -211,7 +213,7 @@
             // 
             // usernamesign
             // 
-            usernamesign.Location = new Point(132, 142);
+            usernamesign.Location = new Point(299, 145);
             usernamesign.Name = "usernamesign";
             usernamesign.Size = new Size(202, 31);
             usernamesign.TabIndex = 2;
@@ -221,9 +223,9 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(panel1);
             Controls.Add(SignUpPanel);
             Controls.Add(LoginPanel);
-            Controls.Add(panel1);
             Name = "AppForm";
             Text = "AppForm";
             panel1.ResumeLayout(false);
@@ -238,8 +240,8 @@
 
         private Panel panel1;
         private Panel LoginPanel;
-        private Button button2;
-        private Button button1;
+        private Button SignUpToggle;
+        private Button LoginToggle;
         private Label label2;
         private TextBox Loginpassword;
         private Label label1;

@@ -29,19 +29,19 @@ namespace OnlineQuizPlatform.Forms
             {
                 try
                 {
-                   
+
                     var user = await _userServices.SignUp(addUserDto);
                     Invoke((Action)(() =>
                     {
                         if (user != null)
                         {
-                            
-                            var MainApp = new MainForm(_userServices ,user);
+
+                            var MainApp = new MainForm(_userServices, user);
                             this.Hide();
                             MainApp.Show();
                         }
                         else { MessageBox.Show("User Already Exists"); }
-                     
+
                     }));
                 }
                 catch (Exception ex)
@@ -53,25 +53,27 @@ namespace OnlineQuizPlatform.Forms
                 }
             });
         }
-        
+
         private void LoginButton_Click(object sender, EventArgs e)
         {
             var user = new UserServices.UserDto(
                 usernameLogin.Text.Trim(),
                 Loginpassword.Text.Trim());
 
-            Task.Run(async () => { 
-                var foundUser=  await _userServices.Login(user);
+            Task.Run(async () =>
+            {
+                var foundUser = await _userServices.Login(user);
 
                 if (foundUser == null)
                 {
-                    Invoke((Action)(() => {
+                    Invoke((Action)(() =>
+                    {
                         MessageBox.Show("InCorrect Credentials");
                     }));
                 }
                 Invoke((Action)(() =>
                 {
-                    var MainApp = new MainForm(_userServices , foundUser);
+                    var MainApp = new MainForm(_userServices, foundUser);
                     this.Hide();
                     MainApp.Show();
 
@@ -79,5 +81,31 @@ namespace OnlineQuizPlatform.Forms
             });
         }
 
+
+
+        private async void ToggleLoginSignUp(bool showLoginPanel)
+        {
+            if (showLoginPanel)
+            {
+                SignUpPanel.Visible = false;
+                LoginPanel.Visible = true;
+            }
+            else
+            {
+                LoginPanel.Visible = false;
+                SignUpPanel.Visible = true;
+            }
+        }
+
+
+        private void LoginToggle_Click(object sender, EventArgs e)
+        {
+            ToggleLoginSignUp(true);
+        }
+
+        private void SignUpToggle_Click(object sender, EventArgs e)
+        {
+            ToggleLoginSignUp(false);
+        }
     }
 }

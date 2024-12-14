@@ -9,14 +9,12 @@ namespace OnlineQuizPlatform.Forms
         private List<Question> _quiz = new();
         private Dictionary<int, int> _userAnswers = new();
         private readonly User _user;
-
         public MainForm(UserServices userServices ,User user)
         {
             _user= user;
             _userServices = userServices;
             InitializeComponent();
         }
-
         private async void TakeQuizButton_Click(object sender, EventArgs e)
         {
             ToggleQuizContent(true);
@@ -38,7 +36,6 @@ namespace OnlineQuizPlatform.Forms
 
             DisplayQuestion(_quiz[_currentQuestionIndex], _currentQuestionIndex + 1);
         }
-
         private void DisplayQuestion(Question question, int index)
         {
             if (question == null)
@@ -84,7 +81,6 @@ namespace OnlineQuizPlatform.Forms
 
             UpdateProgressBar(0);
         }
-
         private async Task<List<Question>?> GetAQuiz()
         {
             return await Task.Run(async () =>
@@ -101,7 +97,6 @@ namespace OnlineQuizPlatform.Forms
                 }
             });
         }
-
         private void Next_Click(object sender, EventArgs e)
         {
             if (_currentQuestionIndex >= _quiz.Count - 1)
@@ -116,7 +111,6 @@ namespace OnlineQuizPlatform.Forms
             DisplayQuestion(_quiz[_currentQuestionIndex], _currentQuestionIndex + 1);
             UpdateProgressBar(1); 
         }
-
         private void Back_Click(object sender, EventArgs e)
         {
             if (_currentQuestionIndex <= 0)
@@ -131,7 +125,6 @@ namespace OnlineQuizPlatform.Forms
             DisplayQuestion(_quiz[_currentQuestionIndex], _currentQuestionIndex + 1);
             UpdateProgressBar(_currentQuestionIndex); 
         }
-
         private async void Submit_Click(object sender, EventArgs e)
         {
             SaveAnswer(_quiz[_currentQuestionIndex].Id);
@@ -158,7 +151,6 @@ namespace OnlineQuizPlatform.Forms
             ToggleQuizContent(false);
             LoadLeaderBoard();
         }
-
         private void SaveAnswer(int questionId)
         {
             int selectedOption = -1;
@@ -173,14 +165,12 @@ namespace OnlineQuizPlatform.Forms
                 _userAnswers[questionId] = selectedOption;
             }
         }
-
         private void UpdateProgressBar(int step)
         {
             int progress = (int)((double)(_currentQuestionIndex + step + 1) / _quiz.Count * 100);
             progress = Math.Max(0, Math.Min(progress, 100));
             progressBar1.Value = progress;
         }
-
         private void ToggleQuizContent(bool showQuizContent)
         {
             foreach (Control control in QuizPanel.Controls)
@@ -192,21 +182,22 @@ namespace OnlineQuizPlatform.Forms
             }
             TakeQuizButton.Visible = !showQuizContent;
         }
-
         private void InitializeTimer()
         {
             LeaderBoardTimer = new System.Windows.Forms.Timer();
-            LeaderBoardTimer.Interval = 5000; 
+            LeaderBoardTimer.Interval = 60*1000; 
             LeaderBoardTimer.Tick += async (s, e) => await LoadLeaderBoard();
             LeaderBoardTimer.Start();
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadLeaderBoard();
+            Title.Text = $"Welcome , {_user.Name}";
+            Title.Padding = new Padding(1);
+            this.Padding = new Padding(1);
             InitializeTimer();
             ToggleQuizContent(false);
         }
-
         private void InitializeLeaderBoard()
         {
             LeaderBoardTable.Controls.Clear();
@@ -219,7 +210,6 @@ namespace OnlineQuizPlatform.Forms
 
             AddLeaderBoardRow("Name", "Score", isHeader: true);
         }
-
         private async Task LoadLeaderBoard()
         {
             try
@@ -254,8 +244,6 @@ namespace OnlineQuizPlatform.Forms
                 MessageBox.Show($"An error occurred while updating the leaderboard: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private void AddLeaderBoardRow(string name, string score, bool isHeader = false)
         {
             var nameLabel = new Label
