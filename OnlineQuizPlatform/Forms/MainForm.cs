@@ -186,7 +186,7 @@ namespace OnlineQuizPlatform.Forms
         private void InitializeTimer()
         {
             LeaderBoardTimer = new System.Windows.Forms.Timer();
-            LeaderBoardTimer.Interval = 60*1000; 
+            LeaderBoardTimer.Interval = 5*1000; 
             LeaderBoardTimer.Tick += async (s, e) => await LoadLeaderBoard();
             LeaderBoardTimer.Start();
         }
@@ -218,8 +218,6 @@ namespace OnlineQuizPlatform.Forms
             }
             AddLeaderBoardRow("Name", "Score", isHeader: true);
         }
-
-
         private async Task LoadLeaderBoard()
         {
             try

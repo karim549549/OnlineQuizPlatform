@@ -18,7 +18,8 @@ public class UserServices
             .Where(u => u.Username == dto.username)
             .FirstOrDefaultAsync();
 
-        if ( user.Password != dto.password)
+        
+        if (user == null ||  user.Password != dto.password)
         {
             return null;
         }
@@ -90,10 +91,18 @@ public class UserServices
         lock(_lock){
             return _context.Users
               .AsNoTracking() 
+              .Where(u=>u.IsAdmin == false)
               .OrderByDescending(u => u.Score)
               .Take(10)
               .ToList();
         }
     }
-
+    public async Task<List<User>> GetUsersAsync()
+    {
+        return  await _context.Users .Where(u=>u.IsAdmin == false).ToListAsync();
+    }
+    public async Task<List<Question>> GetQuestionsAsync()
+    {
+        return await _context.Questions.ToListAsync();
+    }
 }

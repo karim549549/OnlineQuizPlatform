@@ -10,8 +10,8 @@ using OnlineQuizPlatform.Database;
 namespace OnlineQuizPlatform.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241214051341_Version1")]
-    partial class Version1
+    [Migration("20241215103626_Version2")]
+    partial class Version2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,9 @@ namespace OnlineQuizPlatform.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsAdmin")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")

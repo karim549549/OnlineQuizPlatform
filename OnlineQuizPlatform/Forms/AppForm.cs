@@ -8,8 +8,6 @@ namespace OnlineQuizPlatform.Forms
     public partial class AppForm : Form
     {
         private readonly UserServices _userServices;
-
-
         public AppForm(UserServices userServices)
         {
             this._userServices = userServices;
@@ -71,13 +69,26 @@ namespace OnlineQuizPlatform.Forms
                         MessageBox.Show("InCorrect Credentials");
                     }));
                 }
-                Invoke((Action)(() =>
+                else
                 {
-                    var MainApp = new MainForm(_userServices, foundUser);
-                    this.Hide();
-                    MainApp.Show();
+                    Invoke((Action)(() =>
+                    {
+                        Form MainApp;
 
-                }));
+                        if (foundUser.IsAdmin)
+                        {
+                            MainApp = new AdminDashBoard(_userServices, foundUser);
+                        }
+                        else
+                        {
+                            MainApp = new MainForm(_userServices, foundUser);
+                        }
+
+                        this.Hide();
+                        MainApp.Show();
+
+                    }));
+                }
             });
         }
 

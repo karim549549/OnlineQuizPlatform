@@ -18,7 +18,7 @@ namespace OnlineQuizPlatform
             {
                 for (int i = 0; i < numberOfWindows; i++)
                 {
-                    ThreadPool.QueueUserWorkItem(state => CreateNewWindow());
+                    CreateNewWindow();
                 }
             }
             else

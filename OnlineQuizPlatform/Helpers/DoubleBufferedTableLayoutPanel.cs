@@ -6,18 +6,16 @@ namespace OnlineQuizPlatform.Helpers
 {
     internal class DoubleBufferedTableLayoutPanel : TableLayoutPanel
     {
-        // Default constructor
         public DoubleBufferedTableLayoutPanel()
         {
             EnableDoubleBuffering();
         }
 
-        // Constructor to copy properties from an existing TableLayoutPanel
+
         public DoubleBufferedTableLayoutPanel(TableLayoutPanel oldTable)
         {
             EnableDoubleBuffering();
 
-            // Copy layout properties
             this.Dock = oldTable.Dock;
             this.Location = oldTable.Location;
             this.Size = oldTable.Size;
@@ -30,11 +28,9 @@ namespace OnlineQuizPlatform.Helpers
             this.GrowStyle = oldTable.GrowStyle;
             this.Visible = oldTable.Visible;
 
-            // Copy fonts, foreground and background styles
             this.Font = oldTable.Font;
             this.ForeColor = oldTable.ForeColor;
 
-            // Copy column and row styles
             this.ColumnCount = oldTable.ColumnCount;
             this.ColumnStyles.Clear();
             foreach (ColumnStyle columnStyle in oldTable.ColumnStyles)
@@ -42,14 +38,12 @@ namespace OnlineQuizPlatform.Helpers
                 this.ColumnStyles.Add(new ColumnStyle(columnStyle.SizeType, columnStyle.Width));
             }
 
-            this.RowCount = oldTable.RowCount;
             this.RowStyles.Clear();
             foreach (RowStyle rowStyle in oldTable.RowStyles)
             {
                 this.RowStyles.Add(new RowStyle(rowStyle.SizeType, rowStyle.Height));
             }
 
-            // Copy controls and their positions
             foreach (Control control in oldTable.Controls)
             {
                 var position = oldTable.GetPositionFromControl(control);
